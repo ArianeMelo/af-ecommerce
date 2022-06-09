@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AF.ECommerce.Application
 {
-    public class PedidoItemAapplication : IPedidoItemApplication
+    public class PedidoItemApplication : IPedidoItemApplication
     {
     }
 }
