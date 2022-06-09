@@ -4,5 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AF.ECommerce.Domain\AF.ECommerce.Domain.csproj" />
+    <ProjectReference Include="..\AF.ECommerce.IoC\AF.ECommerce.IoC.csproj" />
+  </ItemGroup>
+
 
 </Project>
