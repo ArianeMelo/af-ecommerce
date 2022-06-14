@@ -28,6 +28,7 @@ namespace AF.ECommerce.API
         {
             services
                 .AddControllers();
+                
             InjecaoDeDependencia.RegistrarInjecaoDependencia(services);
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data.SqlClient;
 
 namespace AF.ECommerce.Domain.Entities
 {
@@ -23,7 +24,10 @@ namespace AF.ECommerce.Domain.Entities
             Id = Guid.NewGuid();
             DataCadastro = DateTime.Now;
         }
-    }
+
+	}
+}   
+		
 
 
-}
+

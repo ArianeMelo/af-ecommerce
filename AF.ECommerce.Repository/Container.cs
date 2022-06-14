@@ -1,8 +1,6 @@
 ﻿using AF.ECommerce.Repository.Mappings;
 using Dapper.FluentMap;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Dapper.FluentMap.Dommel;
 
 namespace AF.ECommerce.Repository
 {
@@ -17,6 +15,7 @@ namespace AF.ECommerce.Repository
                 configurar.AddMap(new PedidoMap());
                 configurar.AddMap(new CategoriaMap());
                 configurar.AddMap(new PedidoItemMap());
+                configurar.ForDommel();
             });
         }
     }

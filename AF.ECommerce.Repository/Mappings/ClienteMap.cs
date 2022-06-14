@@ -21,7 +21,7 @@ namespace AF.ECommerce.Repository.Mappings
             Map(cliente => cliente.Cidade).ToColumn("Cidade");
             Map(cliente => cliente.Estado).ToColumn("Estado");
             Map(cliente => cliente.Cep).ToColumn("Cep");
-            Map(cliente => cliente.DataCadastro).ToColumn("Data_Cadastrado");
+            Map(cliente => cliente.DataCadastro).ToColumn("DataCadastro");
         }
 
     }
