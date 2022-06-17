@@ -67,7 +67,7 @@ namespace AF.ECommerce.API.Controllers
                 Cliente cliente = clientes.FirstOrDefault();
 
                 if (cliente != null)
-                    return BadRequest(MensagemErro.erroClienteExistente);
+                    return BadRequest(MensagemErro.erroClienteNaoCadastrado);
 
                 if (string.IsNullOrWhiteSpace(clientePostViewModel.Telefone) || string.IsNullOrWhiteSpace(clientePostViewModel.Endereco) || string.IsNullOrWhiteSpace(clientePostViewModel.Cidade) ||
                     string.IsNullOrWhiteSpace(clientePostViewModel.Estado) || string.IsNullOrWhiteSpace(clientePostViewModel.Cep))
@@ -104,7 +104,7 @@ namespace AF.ECommerce.API.Controllers
         }
 
         [HttpPut("{id:Guid}")]
-        public async Task<IActionResult> Atualizar(Guid id, [FromBody] ClientePutViewModel clientePutViewModel)
+        public async Task<IActionResult> Alterar(Guid id, [FromBody] ClientePutViewModel clientePutViewModel)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace AF.ECommerce.API.Controllers
                 cliente.Estado = clientePutViewModel.Estado;
                 cliente.Cep = clientePutViewModel.Cep;
 
-                await _clienteApplication.Atualizar(cliente);
+                await _clienteApplication.Alterar(cliente);
 
                 return NoContent();
             }

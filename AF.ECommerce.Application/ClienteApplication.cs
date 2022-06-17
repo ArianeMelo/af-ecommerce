@@ -38,9 +38,9 @@ namespace AF.ECommerce.Application
             await _clienteRepository.Adicionar(cliente);
         }
 
-        public async Task Atualizar(Cliente cliente)
+        public async Task Alterar(Cliente cliente)
         {
-            await _clienteRepository.Atualizar(cliente); 
+            await _clienteRepository.Alterar(cliente); 
         }
 
         public async Task Excluir(Cliente cliente)

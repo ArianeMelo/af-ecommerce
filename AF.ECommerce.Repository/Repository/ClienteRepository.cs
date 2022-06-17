@@ -45,7 +45,7 @@ namespace AF.ECommerce.Repository.Repository
 
         }
 
-        public async Task Atualizar(Cliente cliente)
+        public async Task Alterar(Cliente cliente)
         {
             using (SqlConnection dbConnection = new SqlConnection(connectionString))
             {

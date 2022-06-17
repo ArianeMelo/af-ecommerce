@@ -13,7 +13,7 @@ namespace AF.ECommerce.Domain.Interfaces.Repository
         Task<IEnumerable<Cliente>> ObterPorCpf(Expression<Func<Cliente, bool>> where);
         Task<IEnumerable<Cliente>> ObterTodos();
         Task Adicionar(Cliente cliente);
-        Task Atualizar(Cliente cliente);
+        Task Alterar(Cliente cliente);
         Task Excluir(Cliente cliente);
 
     }

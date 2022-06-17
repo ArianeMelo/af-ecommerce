@@ -27,8 +27,8 @@ namespace AF.ECommerce.API
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddControllers();
-                
+                .AddControllers()
+                .AddNewtonsoftJson();
             InjecaoDeDependencia.RegistrarInjecaoDependencia(services);
         }
 

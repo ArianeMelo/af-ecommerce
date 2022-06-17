@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AF.ECommerce.Repository.Mappings
 {
-    public class PedidoMap : DommelEntityMap<Pedidos>
+    public class PedidoMap : DommelEntityMap<Pedido>
     {
         public PedidoMap()
         {

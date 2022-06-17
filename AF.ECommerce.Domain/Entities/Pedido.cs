@@ -5,8 +5,7 @@ using System.Text;
 
 namespace AF.ECommerce.Domain.Entities
 {
-    public class Pedidos
-    {
+    public class Pedido {
         public Guid Id { get; set; }
         public Guid ClienteId { get; set; }
         public DateTime DataCadastro { get; set; }
@@ -15,7 +14,7 @@ namespace AF.ECommerce.Domain.Entities
         public decimal Valor { get; set; }
         public string Observacao { get; set; }
 
-        public Pedidos()
+        public Pedido()
         {
             Id = Guid.NewGuid();
             DataCadastro = DateTime.Now;
