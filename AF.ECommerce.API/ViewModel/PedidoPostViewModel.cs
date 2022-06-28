@@ -31,14 +31,14 @@ namespace AF.ECommerce.API.ViewModel
         {
             public PedidoPostViewModelValidation()
             {
-                RuleFor(pedidoValidation => pedidoValidation.ClienteId)
+                RuleFor(pedido => pedido.ClienteId)
                     .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio)
                     .NotEqual(Guid.Empty).WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);               
 
-                RuleFor(pedidoValidation => pedidoValidation.TipoFrete)
+                RuleFor(pedido => pedido.TipoFrete)
                     .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);
 
-                RuleFor(pedidoValidation => pedidoValidation.Valor)
+                RuleFor(pedido => pedido.Valor)
                     .GreaterThan(0).WithMessage("No campo {PropertyName}" + MensagemErro.erroNumeroInvalido);
 
             }

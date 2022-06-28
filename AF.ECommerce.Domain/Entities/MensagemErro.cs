@@ -19,6 +19,9 @@ namespace AF.ECommerce.Domain.Entities
 
         public static string erroClienteNaoCadastrado = " Id do Cliente inválido ou não cadastrado";
 
+        public static string erroCategoriaNaoCadastrada = " Id da Categoria inválida ou não cadastrada";
+
+        public static string erroDescCategoriaNaoCadastrada = " Descrição informada inválida ou não cadastrada";
 
 
     }
