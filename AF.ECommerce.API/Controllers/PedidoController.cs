@@ -42,12 +42,15 @@ namespace AF.ECommerce.API.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Adicionar(PedidoPostViewModel pedidoPostViewModel)
-        {           
-            if (!pedidoPostViewModel.EstiverValido())                                      
+        {
+           
+            if (!pedidoPostViewModel.EstiverValido())
+            {                               
                 return BadRequest(pedidoPostViewModel.ValidationResult.Errors.Select(erro => erro.ErrorMessage ));
-            
+            }
 
             var cliente = await _clienteApplication.ObterPorId(pedidoPostViewModel.ClienteId);
+
             if (cliente == null)
                 return NotFound(MensagemErro.erroClienteNaoCadastrado);
 
@@ -81,7 +84,7 @@ namespace AF.ECommerce.API.Controllers
             if (cliente == null)
                 return NotFound(MensagemErro.erroClienteNaoCadastrado);
 
-            var pedido = await _pedidoApplication.ObterPorId(id);
+            Pedido pedido = await _pedidoApplication.ObterPorId(id);
 
             if (pedido == null)
                 return NotFound(MensagemErro.erroPedidoNaoCadastrado);

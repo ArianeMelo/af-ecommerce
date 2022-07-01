@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 namespace AF.ECommerce.API.ViewModel
 {
     public class PedidoPutViewModel
-    {  
-        
+    {      
 
         [JsonProperty("cliente_id")]
         public Guid ClienteId { get; set; }
@@ -30,7 +29,7 @@ namespace AF.ECommerce.API.ViewModel
                
                 RuleFor(pedidoValidation => pedidoValidation.ClienteId)
                     .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio)
-                    .NotEqual(Guid.Empty).WithMessage(MensagemErro.erroClienteNaoCadastrado);
+                    .NotEqual(Guid.Empty).WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);
 
                 RuleFor(pedidoValidation => pedidoValidation.Valor)
                     .GreaterThan(0).WithMessage("No campo {PropertyName}" + MensagemErro.erroNumeroInvalido);
