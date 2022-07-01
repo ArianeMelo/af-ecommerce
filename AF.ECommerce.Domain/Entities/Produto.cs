@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AF.ECommerce.Domain.Entities
 {
-    public class Produtos
+    public class Produto
     {
         public Guid Id { get; set; }
         public Guid CategoriaId { get; set; }
@@ -16,7 +16,7 @@ namespace AF.ECommerce.Domain.Entities
         public int Estoque { get; set; }
         public bool Ativo { get; set; }
 
-        public Produtos()
+        public Produto()
         {
             Id = Guid.NewGuid();
         }
