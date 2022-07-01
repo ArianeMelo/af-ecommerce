@@ -74,21 +74,17 @@ namespace AF.ECommerce.API.Controllers
         public async Task<IActionResult> Alterar(Guid id,[FromBody] PedidoPutViewModel pedidoPutViewModel)
         {                  
 
-            if (!pedidoPutViewModel.EstiverValido())
-            {
+            if (!pedidoPutViewModel.EstiverValido())            
                 return BadRequest(pedidoPutViewModel.ValidationResult.Errors.Select(erro => erro.ErrorMessage));
-            }
+           
 
-            Cliente cliente = await _clienteApplication.ObterPorId(pedidoPutViewModel.ClienteId);
-
+            var cliente = await _clienteApplication.ObterPorId(pedidoPutViewModel.ClienteId);
             if (cliente == null)
                 return NotFound(MensagemErro.erroClienteNaoCadastrado);
 
-            Pedido pedido = await _pedidoApplication.ObterPorId(id);
-
+            var pedido = await _pedidoApplication.ObterPorId(id);
             if (pedido == null)
                 return NotFound(MensagemErro.erroPedidoNaoCadastrado);
-
 
             pedido.Id = id; 
             pedido.ClienteId = pedidoPutViewModel.ClienteId;

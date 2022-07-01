@@ -11,7 +11,7 @@ namespace AF.ECommerce.Domain.Entities
         public Guid ProdutoId { get; set; }
         public int Quantidade { get; set; }
         public decimal Valor { get; set; }
-        public decimal Desconto { get; set; }
+        public decimal? Desconto { get; set; }
 
         public PedidoItem()
         {

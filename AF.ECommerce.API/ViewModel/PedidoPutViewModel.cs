@@ -29,7 +29,7 @@ namespace AF.ECommerce.API.ViewModel
                
                 RuleFor(pedidoValidation => pedidoValidation.ClienteId)
                     .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio)
-                    .NotEqual(Guid.Empty).WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);
+                    .NotEqual(Guid.Empty).WithMessage(MensagemErro.erroClienteNaoCadastrado);
 
                 RuleFor(pedidoValidation => pedidoValidation.Valor)
                     .GreaterThan(0).WithMessage("No campo {PropertyName}" + MensagemErro.erroNumeroInvalido);

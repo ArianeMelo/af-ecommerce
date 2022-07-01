@@ -11,7 +11,7 @@ namespace AF.ECommerce.Repository.Mappings
         public PedidoItemMap()
         {
             ToTable("Pedidos_Item");
-            Map(pedidoItem => pedidoItem.Id).ToColumn("Id");
+            Map(pedidoItem => pedidoItem.Id).ToColumn("Id").IsKey();
             Map(pedidoItem => pedidoItem.PedidoId).ToColumn("Pedido_Id");
             Map(pedidoItem => pedidoItem.ProdutoId).ToColumn("Produto_Id");
             Map(pedidoItem => pedidoItem.Quantidade).ToColumn("Quantidade");
