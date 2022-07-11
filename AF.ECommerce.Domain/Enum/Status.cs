@@ -6,8 +6,8 @@ namespace AF.ECommerce.Domain.Enum
 {
     public enum Status
     {
-        Analise = 1,
-        Finalizado = 2,
+        EmAnalise = 1,
+        EmProcessamento = 2,
         Entregue = 3,
         Cancelado = 4,
     }

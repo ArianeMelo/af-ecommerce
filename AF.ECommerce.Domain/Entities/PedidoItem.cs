@@ -11,11 +11,21 @@ namespace AF.ECommerce.Domain.Entities
         public Guid ProdutoId { get; set; }
         public int Quantidade { get; set; }
         public decimal Valor { get; set; }
-        public decimal? Desconto { get; set; }
+        public decimal Desconto { get; set; }
 
-        public PedidoItem()
+        public PedidoItem(
+            Guid pedidoId,
+            Guid produtoId,
+            int quantidade,
+            decimal valor,
+            decimal desconto)
         {
             Id = Guid.NewGuid();
+            PedidoId = pedidoId;
+            ProdutoId = produtoId;
+            Quantidade = quantidade;
+            Valor = valor;
+            Desconto = desconto;
         }
     }
 }

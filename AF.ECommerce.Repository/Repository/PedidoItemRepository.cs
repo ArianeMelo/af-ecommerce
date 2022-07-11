@@ -35,14 +35,7 @@ namespace AF.ECommerce.Repository.Repository
                 return await dbConnection.GetAsync<PedidoItem>(id);
             }
         }
-
-        public async Task Adicionar(PedidoItem pedidoItem)
-        {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.InsertAsync(pedidoItem);
-            }
-        }
+          
 
         public async Task Alterar(PedidoItem pedidoItem)
         {

@@ -10,7 +10,6 @@ namespace AF.ECommerce.Domain.Interfaces.Repository
     {
         Task<IEnumerable<PedidoItem>> ObterTodos();
         Task<PedidoItem> ObterPorId(Guid id);
-        Task Adicionar(PedidoItem pedidoItem);
         Task Alterar(PedidoItem pedidoItem);
         Task Excluir(PedidoItem pedidoItem);
     }

@@ -9,8 +9,7 @@ namespace AF.ECommerce.Domain.Interfaces.Application
     public interface IPedidoItemApplication
     {
         Task<IEnumerable<PedidoItem>> ObterTodos();
-        Task<PedidoItem> ObterPorId(Guid id);
-        Task Adicionar(PedidoItem pedidoItem);
+        Task<PedidoItem> ObterPorId(Guid id);       
         Task Alterar(PedidoItem pedidoItem);
         Task Excluir(PedidoItem pedidoItem);
     }

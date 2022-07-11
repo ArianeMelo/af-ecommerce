@@ -24,7 +24,6 @@ namespace AF.ECommerce.Application
             _produtoRepository = produtoRepository;
         }
 
-
         public async Task<PedidoItem> ObterPorId(Guid id)
         {
 
@@ -36,14 +35,6 @@ namespace AF.ECommerce.Application
 
             return await _pedidoItemRepository.ObterTodos();
         }
-
-
-        public async Task Adicionar(PedidoItem pedidoItem)
-        {
-
-            await _pedidoItemRepository.Adicionar(pedidoItem);
-        }
-
 
         public async Task Alterar(PedidoItem pedidoItem)
         {

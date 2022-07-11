@@ -20,5 +20,15 @@ namespace AF.ECommerce.Domain.Entities
         {
             Id = Guid.NewGuid();
         }
+
+        public bool VerificarSePodeDebitarEstoque(int quantidade)
+        {
+            return Estoque > quantidade;
+        }
+
+        public void DebitarEstoque(int quantidade)
+        {
+            this.Estoque -= quantidade;
+        }
     }
 }

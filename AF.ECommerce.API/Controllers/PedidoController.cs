@@ -15,13 +15,19 @@ namespace AF.ECommerce.API.Controllers
     {
         private readonly IPedidoApplication _pedidoApplication;
         private readonly IClienteApplication _clienteApplication;
+        private readonly IProdutoApplication _produtoApplication;
+        private readonly IPedidoItemApplication _pedidoItemApplication;
 
         public PedidoController(
             IPedidoApplication pedidoApplication,
-            IClienteApplication clienteApplication)
+            IClienteApplication clienteApplication,
+            IProdutoApplication produtoApplication,
+            IPedidoItemApplication pedidoItemApplication)
         {
             _pedidoApplication = pedidoApplication;
             _clienteApplication = clienteApplication;
+            _produtoApplication = produtoApplication;
+            _pedidoItemApplication = pedidoItemApplication;
         }
 
         [HttpGet("{id}")]
@@ -40,33 +46,33 @@ namespace AF.ECommerce.API.Controllers
             return Ok(await _pedidoApplication.ObterTodos());
         }
 
-        [HttpPost]
+        [HttpPost("{criar}")]
         public async Task<IActionResult> Adicionar(PedidoPostViewModel pedidoPostViewModel)
         {
-           
+
             if (!pedidoPostViewModel.EstiverValido())
-            {                               
-                return BadRequest(pedidoPostViewModel.ValidationResult.Errors.Select(erro => erro.ErrorMessage ));
-            }
+                return BadRequest(pedidoPostViewModel.ValidationResult.Errors.Select(erro => erro.ErrorMessage));
 
             var cliente = await _clienteApplication.ObterPorId(pedidoPostViewModel.ClienteId);
-
             if (cliente == null)
                 return NotFound(MensagemErro.erroClienteNaoCadastrado);
 
+            var pedido = new Pedido(pedidoPostViewModel.ClienteId, pedidoPostViewModel.TipoFrete, pedidoPostViewModel.Observacao);
 
-            var pedido = new Pedido()
+            pedidoPostViewModel.Itens.ForEach(item =>
             {
-                ClienteId = pedidoPostViewModel.ClienteId,
-                TipoFrete = pedidoPostViewModel.TipoFrete,
-                Status = Status.Analise,
-                Valor = pedidoPostViewModel.Valor,
-                Observacao = pedidoPostViewModel.Observacao
-            };
+                var pedidoItem = new PedidoItem(pedido.Id, item.ProdutoId, item.Quantidade, item.Valor, item.Desconto);
 
-            await _pedidoApplication.Adicionar(pedido);
+                pedido.AdicionarItem(pedidoItem);
 
-            return Ok(pedido.Id);
+            });
+
+            var estoqueSuficente = await _pedidoApplication.AdicionarPedido(pedido);
+            if (!estoqueSuficente)
+                return BadRequest("Produto Indisponível");
+
+
+            return Ok(pedido);
 
         }
 

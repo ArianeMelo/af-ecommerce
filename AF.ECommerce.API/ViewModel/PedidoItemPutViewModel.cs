@@ -25,7 +25,7 @@ namespace AF.ECommerce.API.ViewModel
         public decimal Valor { get; set; }
 
         [JsonProperty("desconto")]
-        public decimal? Desconto { get; set; }
+        public decimal Desconto { get; set; }
 
         public ValidationResult ValidationResult { get; set; }
 

@@ -11,20 +11,19 @@ using System.Threading.Tasks;
 namespace AF.ECommerce.API.ViewModel
 {
     public class PedidoPostViewModel
-    {    
+    {
 
         [JsonProperty("cliente_id")]
         public Guid ClienteId { get; set; }
 
         [JsonProperty("tipo_frete")]
-        public TipoFrete TipoFrete { get; set; }     
-
-        [JsonProperty("valor")]
-        public decimal Valor { get; set; }
+        public TipoFrete TipoFrete { get; set; }
 
         [JsonProperty("observacao")]
         public string Observacao { get; set; }
 
+        [JsonProperty("itens")]
+        public List<PedidoItemPostViewModel> Itens { get; set; }
 
         public ValidationResult ValidationResult { get; private set; }
         public class PedidoPostViewModelValidation : AbstractValidator<PedidoPostViewModel>
@@ -32,23 +31,20 @@ namespace AF.ECommerce.API.ViewModel
             public PedidoPostViewModelValidation()
             {
                 RuleFor(pedido => pedido.ClienteId)
-                    .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio)
-                    .NotEqual(Guid.Empty).WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);               
+                  .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio)
+                  .NotEqual(Guid.Empty).WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);
 
                 RuleFor(pedido => pedido.TipoFrete)
-                    .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);
-
-                RuleFor(pedido => pedido.Valor)
-                    .GreaterThan(0).WithMessage("No campo {PropertyName}" + MensagemErro.erroNumeroInvalido);
-
+                    .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio)
+                    .IsInEnum();
             }
-        }       
+        }
         public bool EstiverValido()
         {
             ValidationResult = new PedidoPostViewModelValidation().Validate(this);
 
             return ValidationResult.IsValid;
         }
-               
+
     }
 }
