@@ -13,6 +13,8 @@ namespace AF.ECommerce.Domain.Entities
         public decimal Valor { get; set; }
         public decimal Desconto { get; set; }
 
+        public int QUANTIDADE_PERMITIDA_POR_VENDA = 11;
+
         public PedidoItem(
             Guid pedidoId,
             Guid produtoId,
@@ -27,5 +29,7 @@ namespace AF.ECommerce.Domain.Entities
             Valor = valor;
             Desconto = desconto;
         }
+
+       
     }
 }

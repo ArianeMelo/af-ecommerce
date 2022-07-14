@@ -45,6 +45,8 @@ namespace AF.ECommerce.Application
         {
             List<Produto> listaProdutoAInserir = new List<Produto>();
 
+           
+
             foreach (var item in pedido.Itens)
             {
                 var produto = await _produtoRepository.ObterPorId(item.ProdutoId);
@@ -52,16 +54,13 @@ namespace AF.ECommerce.Application
                     return false;
 
                 var possoDebitar = produto.VerificarSePodeDebitarEstoque(item.Quantidade);
-                if (possoDebitar) //true se puder debitar 
+
+                if (possoDebitar && item.Quantidade < item.QUANTIDADE_PERMITIDA_POR_VENDA) //true se puder debitar 
                     listaProdutoAInserir.Add(produto);
 
                 else
-                {
-                    _logger.LogError("O produto: " + produto.Descricao + " está indisponível");
-                    listaProdutoAInserir = null;
                     return false;
-                }
-
+               
             }
 
             await _pedidoRepository.AdicionarPedido(pedido);
