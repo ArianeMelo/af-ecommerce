@@ -44,7 +44,7 @@ namespace AF.ECommerce.Repository.Repository
                 var itensPedido = _pedidoItemRepository.ObterPorPedidoId(pedido => pedido.PedidoId == id).Result.ToList();
 
 
-                return dbConnection.Query<Pedido, PedidoItem, Pedido>(queryPedido,
+                var pedido = dbConnection.Query<Pedido, PedidoItem, Pedido>(queryPedido,
                     map: (pedido, pedidoItem) =>
                     {
 
@@ -55,7 +55,7 @@ namespace AF.ECommerce.Repository.Repository
                     param: new { id },
                     splitOn: "id").FirstOrDefault();
 
-
+                return pedido;
 
             }
         }

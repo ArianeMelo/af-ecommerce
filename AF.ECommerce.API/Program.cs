@@ -23,6 +23,7 @@ namespace AF.ECommerce.API
              {
                  configurar.AddHostedService<AlteraStatusPedidoParaProcessandoWorker>();
                  configurar.AddHostedService<AlteraStatusPedidoParaEntregueWorker>();
+                 configurar.AddHostedService<EnvioEmailSeEstoqueBaixoWorker>();
 
              });
     }
