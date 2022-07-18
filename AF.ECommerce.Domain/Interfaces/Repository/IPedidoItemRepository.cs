@@ -1,6 +1,7 @@
 ﻿using AF.ECommerce.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace AF.ECommerce.Domain.Interfaces.Repository
     {
         Task<IEnumerable<PedidoItem>> ObterTodos();
         Task<PedidoItem> ObterPorId(Guid id);
+        Task<IEnumerable<PedidoItem>> ObterPorPedidoId(Expression<Func<PedidoItem, bool>> where);
         Task Alterar(PedidoItem pedidoItem);
         Task Excluir(PedidoItem pedidoItem);
     }

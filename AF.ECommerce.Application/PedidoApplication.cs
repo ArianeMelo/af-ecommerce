@@ -55,7 +55,10 @@ namespace AF.ECommerce.Application
 
                 var possoDebitar = produto.VerificarSePodeDebitarEstoque(item.Quantidade);
 
-                if (possoDebitar && item.Quantidade < item.QUANTIDADE_PERMITIDA_POR_VENDA) //true se puder debitar 
+                  int QUANTIDADE_PERMITIDA_POR_VENDA = 11;
+                
+
+                if (possoDebitar && item.Quantidade < QUANTIDADE_PERMITIDA_POR_VENDA) //true se puder debitar 
                     listaProdutoAInserir.Add(produto);
 
                 else

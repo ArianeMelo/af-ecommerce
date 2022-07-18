@@ -14,7 +14,7 @@ namespace AF.ECommerce.Domain.Entities
         public Status Status { get; set; }
         public decimal Valor { get; set; }
         public string Observacao { get; set; }
-        public List<PedidoItem> Itens { get; private set; } = new List<PedidoItem>();
+        public List<PedidoItem> Itens { get; set; } = new List<PedidoItem>();
 
         public Pedido()
         { }

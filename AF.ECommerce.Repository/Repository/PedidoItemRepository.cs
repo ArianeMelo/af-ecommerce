@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,7 +36,15 @@ namespace AF.ECommerce.Repository.Repository
                 return await dbConnection.GetAsync<PedidoItem>(id);
             }
         }
-          
+
+        public async Task<IEnumerable<PedidoItem>> ObterPorPedidoId(Expression<Func<PedidoItem, bool>> where)
+        {
+            using (SqlConnection dbConnection = new SqlConnection(_connection))
+            {
+                return await dbConnection.SelectAsync<PedidoItem>(where);
+            }
+        }
+
 
         public async Task Alterar(PedidoItem pedidoItem)
         {
