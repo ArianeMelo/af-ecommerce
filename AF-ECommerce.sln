@@ -15,15 +15,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Domain", "3-Domain", "{F1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Infra", "4-Infra", "{E7B72BE3-8AD2-41DE-BB33-B831FA5A7944}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AF.ECommerce.API", "AF.ECommerce.API\AF.ECommerce.API.csproj", "{F13C52FB-20F5-41AD-A52B-DF521BD1B68F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AF.ECommerce.API", "AF.ECommerce.API\AF.ECommerce.API.csproj", "{F13C52FB-20F5-41AD-A52B-DF521BD1B68F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AF.ECommerce.Application", "AF.ECommerce.Application\AF.ECommerce.Application.csproj", "{CAA048FC-B458-4B1C-A5C0-3813AABEC039}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AF.ECommerce.Application", "AF.ECommerce.Application\AF.ECommerce.Application.csproj", "{CAA048FC-B458-4B1C-A5C0-3813AABEC039}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AF.ECommerce.Domain", "AF.ECommerce.Domain\AF.ECommerce.Domain.csproj", "{D203F6E2-2205-49B4-BFDF-A4EE47843F32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AF.ECommerce.Domain", "AF.ECommerce.Domain\AF.ECommerce.Domain.csproj", "{D203F6E2-2205-49B4-BFDF-A4EE47843F32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AF.ECommerce.Repository", "AF.ECommerce.Repository\AF.ECommerce.Repository.csproj", "{DE3FEBDC-643C-49A2-9C8D-F67F17806832}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AF.ECommerce.Repository", "AF.ECommerce.Repository\AF.ECommerce.Repository.csproj", "{DE3FEBDC-643C-49A2-9C8D-F67F17806832}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AF.ECommerce.IoC", "AF.ECommerce.IoC\AF.ECommerce.IoC.csproj", "{93837E84-BA3C-421D-A1F2-AAAA565C609A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AF.ECommerce.IoC", "AF.ECommerce.IoC\AF.ECommerce.IoC.csproj", "{93837E84-BA3C-421D-A1F2-AAAA565C609A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AF-ECommerce.Test", "AF-ECommerce.Test\AF-ECommerce.Test.csproj", "{F92EF107-AF6D-4A51-9465-B588867E0EF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{93837E84-BA3C-421D-A1F2-AAAA565C609A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93837E84-BA3C-421D-A1F2-AAAA565C609A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93837E84-BA3C-421D-A1F2-AAAA565C609A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F92EF107-AF6D-4A51-9465-B588867E0EF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F92EF107-AF6D-4A51-9465-B588867E0EF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F92EF107-AF6D-4A51-9465-B588867E0EF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F92EF107-AF6D-4A51-9465-B588867E0EF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +71,7 @@ Global
 		{D203F6E2-2205-49B4-BFDF-A4EE47843F32} = {F1632764-55C9-4980-B201-72024FA6BB3A}
 		{DE3FEBDC-643C-49A2-9C8D-F67F17806832} = {E7B72BE3-8AD2-41DE-BB33-B831FA5A7944}
 		{93837E84-BA3C-421D-A1F2-AAAA565C609A} = {E7B72BE3-8AD2-41DE-BB33-B831FA5A7944}
+		{F92EF107-AF6D-4A51-9465-B588867E0EF9} = {116B0E4A-65E3-4C2F-AC99-019100504330}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7973D0E4-94F4-4599-A8B7-6587BCA0C01E}

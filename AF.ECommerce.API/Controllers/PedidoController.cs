@@ -1,4 +1,5 @@
-﻿using AF.ECommerce.API.ViewModel;
+﻿using AF.ECommerce.API.Factory;
+using AF.ECommerce.API.ViewModel;
 using AF.ECommerce.Domain.Entities;
 using AF.ECommerce.Domain.Enum;
 using AF.ECommerce.Domain.Interfaces.Application;
@@ -57,6 +58,8 @@ namespace AF.ECommerce.API.Controllers
             if (cliente == null)
                 return NotFound(MensagemErro.erroClienteNaoCadastrado);
 
+          // var pedido = PedidoViewModelToPedidoFactory.Criar(pedidoPostViewModel);
+
             var pedido = new Pedido(pedidoPostViewModel.ClienteId, pedidoPostViewModel.TipoFrete, pedidoPostViewModel.Observacao);
 
             pedidoPostViewModel.Itens.ForEach(item =>
@@ -66,6 +69,7 @@ namespace AF.ECommerce.API.Controllers
                 pedido.AdicionarItem(pedidoItem);
 
             });
+                     
 
             var estoqueSuficente = await _pedidoApplication.AdicionarPedido(pedido);
             if (!estoqueSuficente)

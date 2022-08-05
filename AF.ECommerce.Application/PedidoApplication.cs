@@ -43,9 +43,7 @@ namespace AF.ECommerce.Application
 
         public async Task<bool> AdicionarPedido(Pedido pedido)
         {
-            List<Produto> listaProdutoAInserir = new List<Produto>();
-
-           
+            List<Produto> listaProdutoAInserir = new List<Produto>();           
 
             foreach (var item in pedido.Itens)
             {
@@ -77,7 +75,7 @@ namespace AF.ECommerce.Application
 
                 await _pedidoRepository.AdicionarPedidoItem(pedidoItem);
 
-
+                
                 var produto = listaProdutoAInserir.FirstOrDefault(prod => prod.Id == item.ProdutoId);
                 produto.DebitarEstoque(item.Quantidade);
                 await _produtoRepository.Alterar(produto);

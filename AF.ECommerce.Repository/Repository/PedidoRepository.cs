@@ -29,6 +29,8 @@ namespace AF.ECommerce.Repository.Repository
 
         public async Task<Pedido> ObterPorId(Guid id)
         {
+            await Task.Delay(1);
+
             using (SqlConnection dbConnection = new SqlConnection(_connection))
             {
                 var queryPedido = @"SELECT P.ID, P.CLIENTEID, " +

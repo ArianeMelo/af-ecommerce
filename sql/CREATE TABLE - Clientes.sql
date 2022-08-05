@@ -13,11 +13,12 @@ CREATE TABLE [dbo].Clientes(
 [CPF] [varchar](11) NOT NULL,
 [RG] [varchar](8) NOT NULL,
 [Telefone] [varchar] (11) NOT NULL,
+[CEP] [varchar] (20) NOT NULL,
 [Endereco] [varchar] (50) NOT NULL,
 [Numero] [int] NOT NULL,
+[Bairro] [varchar] (50),
 [Cidade] [varchar] (50) NOT NULL,
 [Estado] [varchar] (20) NOT NULL,
-[CEP] [varchar] (20) NOT NULL,
 [Data_Cadastro] [datetime2] (7) NOT NULL, 
 CONSTRAINT [PK_Clientes] PRIMARY KEY CLUSTERED
 (

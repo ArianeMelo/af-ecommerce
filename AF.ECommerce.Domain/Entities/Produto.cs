@@ -21,12 +21,12 @@ namespace AF.ECommerce.Domain.Entities
             Id = Guid.NewGuid();
         }
 
-        public bool VerificarSePodeDebitarEstoque(int quantidade)
+        public virtual bool VerificarSePodeDebitarEstoque(int quantidade)
         {
             return Estoque > quantidade;
         }
 
-        public void DebitarEstoque(int quantidade)
+        public virtual void DebitarEstoque(int quantidade)
         {
             this.Estoque -= quantidade;
         }

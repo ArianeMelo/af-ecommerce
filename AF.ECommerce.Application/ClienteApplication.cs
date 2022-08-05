@@ -1,6 +1,7 @@
 ﻿using AF.ECommerce.Domain.Entities;
 using AF.ECommerce.Domain.Interfaces.Application;
 using AF.ECommerce.Domain.Interfaces.Repository;
+using AF.ECommerce.Domain.Validadores.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -12,10 +13,14 @@ namespace AF.ECommerce.Application
     public class ClienteApplication : IClienteApplication
     {
         private readonly IClienteRepository _clienteRepository;
+        private readonly ICep _cep;
+        private readonly ICpf _cpf;
 
-        public ClienteApplication(IClienteRepository clienteRepository)
+        public ClienteApplication(IClienteRepository clienteRepository, ICep cep, ICpf cpf)
         {
             _clienteRepository = clienteRepository;
+            _cep = cep;
+            _cpf = cpf;
         }
 
         public async Task<Cliente> ObterPorId(Guid id)
@@ -33,13 +38,27 @@ namespace AF.ECommerce.Application
             return await _clienteRepository.ObterTodos();
         }
 
-        public async Task Adicionar(Cliente cliente)
-        {
+         public async Task<bool> Adicionar(Cliente cliente)
+         {
+
+            var cpfvalido = _cpf.ValidarCpf(cliente.Cpf);
+            if (!cpfvalido)
+                return false;
+
+
+            var cepValido = await _cep.ValidarCep(cliente.Cep);
+            if (cepValido.Cep == null)
+                return false;
+
             await _clienteRepository.Adicionar(cliente);
-        }
+
+            return true;
+         }
 
         public async Task Alterar(Cliente cliente)
         {
+
+
             await _clienteRepository.Alterar(cliente); 
         }
 

@@ -12,11 +12,12 @@ namespace AF.ECommerce.Domain.Entities
         public string Cpf { get; set; }
         public string Rg { get; set; }
         public string Telefone { get; set; }
+        public string Cep { get; set; }
         public string Endereco { get; set; }
         public int Numero { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
-        public string Cep { get; set; }
+        
         public DateTime DataCadastro { get; set; }
 
         public Cliente()

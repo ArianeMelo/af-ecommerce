@@ -1,6 +1,8 @@
 ﻿using AF.ECommerce.Application;
 using AF.ECommerce.Domain.Interfaces.Application;
 using AF.ECommerce.Domain.Interfaces.Repository;
+using AF.ECommerce.Domain.Validadores.Classe;
+using AF.ECommerce.Domain.Validadores.Interface;
 using AF.ECommerce.Repository;
 using AF.ECommerce.Repository.Repository;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +29,8 @@ namespace AF.ECommerce.IoC.Dependency
             services.AddScoped<IPedidoApplication, PedidoApplication>();
             services.AddScoped<IPedidoItemApplication, PedidoItemApplication>();
             services.AddScoped<ICategoriaApplication, CategoriaApplication>();
+            services.AddScoped<ICep, Cep>();
+            services.AddScoped<ICpf, Cpf>();
         }
        
     }

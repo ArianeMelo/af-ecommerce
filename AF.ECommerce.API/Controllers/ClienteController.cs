@@ -59,22 +59,16 @@ namespace AF.ECommerce.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Adicionar(ClientePostViewModel clientePostViewModel)
         {
-            try
-            {
-                IEnumerable<Cliente> clientes = await _clienteApplication.ObterPorCpf(
+            if (!clientePostViewModel.EstiverValido())
+                return BadRequest(clientePostViewModel.ValidationResult.Errors.Select(erro => erro.ErrorMessage));
+
+            IEnumerable<Cliente> clientes = await _clienteApplication.ObterPorCpf(
                cli => cli.Cpf == clientePostViewModel.Cpf);
 
                 Cliente cliente = clientes.FirstOrDefault();
 
                 if (cliente != null)
-                    return BadRequest(MensagemErro.erroClienteNaoCadastrado);
-
-                if (string.IsNullOrWhiteSpace(clientePostViewModel.Telefone) || string.IsNullOrWhiteSpace(clientePostViewModel.Endereco) || string.IsNullOrWhiteSpace(clientePostViewModel.Cidade) ||
-                    string.IsNullOrWhiteSpace(clientePostViewModel.Estado) || string.IsNullOrWhiteSpace(clientePostViewModel.Cep))
-                return BadRequest(MensagemErro.erroStringVazio);
-
-                if (clientePostViewModel.Numero < 1)
-                    return BadRequest(MensagemErro.erroNumeroInvalido);
+                    return BadRequest(MensagemErro.erroClienteNaoCadastrado);              
 
 
                 cliente = new Cliente
@@ -94,11 +88,7 @@ namespace AF.ECommerce.API.Controllers
 
                 return Ok(cliente.Id);
               
-            }
-            catch (Exception)
-            {
-                throw;
-            }        
+               
             
 
         }

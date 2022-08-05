@@ -12,7 +12,7 @@ namespace AF.ECommerce.Domain.Interfaces.Application
         Task<Cliente> ObterPorId(Guid id);
         Task<IEnumerable<Cliente>> ObterPorCpf(Expression<Func<Cliente, bool>> where);
         Task<IEnumerable<Cliente>> ObterTodos();
-        Task Adicionar(Cliente cliente);
+        Task<bool> Adicionar(Cliente cliente);
         Task Alterar(Cliente cliente);
         Task Excluir(Cliente cliente);
        

@@ -1,0 +1,12 @@
+{
+  "nome": "Ariane Melo",
+  "cpf": "906.048.780-01",
+  "rg": "123",
+  "telefone": "90101-0101",
+  "endereco": "Rua Teste",
+  "numero": 1,
+  "cidade": "Sao Paulo",
+  "estado": "SP",
+  "cep":"08255-120"
+
+}

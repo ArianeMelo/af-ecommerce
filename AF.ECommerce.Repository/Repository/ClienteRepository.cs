@@ -45,11 +45,13 @@ namespace AF.ECommerce.Repository.Repository
                 return await dbConnection.GetAllAsync<Cliente>(); 
             }
         }
-        public async Task Adicionar(Cliente cliente)
+        public async Task<bool> Adicionar(Cliente cliente)
         {
            using(SqlConnection dbConnection = new SqlConnection(_connection))
            {
-                await dbConnection.InsertAsync(cliente);
+                var cli = await dbConnection.InsertAsync(cliente);
+
+                return true;
            }
 
         }

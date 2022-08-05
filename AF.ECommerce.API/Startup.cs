@@ -1,16 +1,11 @@
+using AF.ECommerce.Domain.Validadores.Classe;
+using AF.ECommerce.Domain.Validadores.Interface;
 using AF.ECommerce.IoC.Dependency;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AF.ECommerce.API
 {
@@ -30,6 +25,8 @@ namespace AF.ECommerce.API
                 .AddControllers()
                 .AddNewtonsoftJson();
             InjecaoDeDependencia.RegistrarInjecaoDependencia(services);
+                   
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

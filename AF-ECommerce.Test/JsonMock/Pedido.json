@@ -1,0 +1,27 @@
+{
+  "id": "c9260e7e-b7bb-4aea-b2b1-ac302ba52d4c",
+  "clienteId": "56f8026c-dd37-47c5-907e-53ee742d0669",
+  "dataCadastro": "2022-07-13T21:01:21.64",
+  "tipoFrete": 3,
+  "status": 3,
+  "valor": 699.10,
+  "observacao": "",
+  "itens": [
+    {
+      "id": "530af7a5-6624-4d7b-a289-27b313156114",
+      "pedidoId": "c9260e7e-b7bb-4aea-b2b1-ac302ba52d4c",
+      "produtoId": "5205aa45-adbc-4d59-a535-833784285236",
+      "quantidade": 6,
+      "valor": 79.90,
+      "desconto": 0.00
+    },
+    {
+      "id": "e386de89-700b-4710-b3d7-55515b789b95",
+      "pedidoId": "c9260e7e-b7bb-4aea-b2b1-ac302ba52d4c",
+      "produtoId": "21123148-2d52-4d4c-a6bc-a5a5ed0d660a",
+      "quantidade": 1,
+      "valor": 19.90,
+      "desconto": 0.00
+    }
+  ]
+}

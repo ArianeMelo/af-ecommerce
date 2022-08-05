@@ -1,4 +1,7 @@
 ﻿
+using AF.ECommerce.Domain.Entities;
+using FluentValidation;
+using FluentValidation.Results;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -35,6 +38,51 @@ namespace AF.ECommerce.API.ViewModel
 
         [JsonProperty("cep")]
         public string Cep { get; set; }
+
+        public ValidationResult ValidationResult { get; set; }
+
+        public class ClientePostViewModelValidation : AbstractValidator<ClientePostViewModel>
+        {
+            public ClientePostViewModelValidation()
+            {
+                RuleFor(cliente => cliente.Nome)
+                      .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);
+
+                RuleFor(cliente => cliente.Cpf)
+                     .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);
+
+                RuleFor(cliente => cliente.Rg)
+                    .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);
+
+                RuleFor(cliente => cliente.Telefone)
+                    .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);
+
+                RuleFor(pedido => pedido.Cep)
+                    .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);
+
+                RuleFor(pedido => pedido.Endereco)
+                    .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);
+
+                RuleFor(pedido => pedido.Numero)
+                    .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio)
+                    .GreaterThan(0).WithMessage(MensagemErro.erroNumeroInvalido);
+
+                RuleFor(pedido => pedido.Cidade)
+                .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);
+
+                RuleFor(pedido => pedido.Estado)
+                    .NotNull().WithMessage("O campo {PropertyName}" + MensagemErro.erroStringVazio);
+
+            }
+
+        }
+
+        public bool EstiverValido()
+        {
+            ValidationResult = new ClientePostViewModelValidation().Validate(this);
+
+            return ValidationResult.IsValid;
+        }
 
     }
 }
