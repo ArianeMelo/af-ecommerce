@@ -5,10 +5,8 @@ using AF.ECommerce.Domain.Validadores.Classe;
 using AF.ECommerce.Domain.Validadores.Interface;
 using AF.ECommerce.Repository;
 using AF.ECommerce.Repository.Repository;
+using AF.ECommerce.Repository.Repository.Base;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AF.ECommerce.IoC.Dependency
 {
@@ -18,12 +16,6 @@ namespace AF.ECommerce.IoC.Dependency
         {
             Container.RegistrarMapeamentoDapper();
 
-            services.AddScoped<IClienteRepository, ClienteRepository>();
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            services.AddScoped<IPedidoRepository, PedidoRepository>();
-            services.AddScoped<IPedidoItemRepository, PedidoItemRepository>();
-            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
-
             services.AddScoped<IClienteApplication, ClienteApplication>();
             services.AddScoped<IProdutoApplication, ProdutoApplication>();
             services.AddScoped<IPedidoApplication, PedidoApplication>();
@@ -31,6 +23,15 @@ namespace AF.ECommerce.IoC.Dependency
             services.AddScoped<ICategoriaApplication, CategoriaApplication>();
             services.AddScoped<ICep, Cep>();
             services.AddScoped<ICpf, Cpf>();
+
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IPedidoRepository, PedidoRepository>();
+            services.AddScoped<IPedidoItemRepository, PedidoItemRepository>();
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+           
+            services.AddScoped<IUnityOfWork, UnitYOfWork>();
         }
        
     }

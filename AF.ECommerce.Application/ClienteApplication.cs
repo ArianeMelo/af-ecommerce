@@ -30,9 +30,9 @@ namespace AF.ECommerce.Application
 
         public async Task<IEnumerable<Cliente>> ObterPorCpf(Expression<Func<Cliente, bool>> where)
         {
-            return await _clienteRepository.ObterPorCpf(where);
+            return await _clienteRepository.Buscar(where);
         }
-
+         
         public async Task<IEnumerable<Cliente>> ObterTodos()
         {
             return await _clienteRepository.ObterTodos();

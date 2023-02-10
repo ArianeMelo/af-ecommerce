@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AF.ECommerce.Repository", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AF.ECommerce.IoC", "AF.ECommerce.IoC\AF.ECommerce.IoC.csproj", "{93837E84-BA3C-421D-A1F2-AAAA565C609A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AF-ECommerce.Test", "AF-ECommerce.Test\AF-ECommerce.Test.csproj", "{F92EF107-AF6D-4A51-9465-B588867E0EF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AF-ECommerce.Test", "AF-ECommerce.Test\AF-ECommerce.Test.csproj", "{F92EF107-AF6D-4A51-9465-B588867E0EF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

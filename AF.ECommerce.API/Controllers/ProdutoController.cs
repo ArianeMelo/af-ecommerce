@@ -2,6 +2,7 @@
 using AF.ECommerce.Domain.Entities;
 using AF.ECommerce.Domain.Interfaces.Application;
 using AF.ECommerce.Domain.Interfaces.Repository;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,13 +18,16 @@ namespace AF.ECommerce.API.Controllers
     {
         private readonly IProdutoApplication _produtoApplication;
         private readonly ICategoriaApplication _categoriaApplication;
+        //private readonly IMapper _mapper;
 
         public ProdutoController(
-            IProdutoApplication produtoApplication,
+            IProdutoApplication produtoApplication, 
             ICategoriaApplication categoriaApplication)
+            //, IMapper mapper)
         {
             _produtoApplication = produtoApplication;
             _categoriaApplication = categoriaApplication;
+            //_mapper = mapper;
         }
 
         [HttpGet("{id}")]
@@ -40,6 +44,8 @@ namespace AF.ECommerce.API.Controllers
         public async Task<IActionResult> ObterTodos()
         {
             return Ok(await _produtoApplication.ObterTodos());
+
+            //Mudar ProdutoPostViewModel para Get 
         }
 
         [HttpPost]
@@ -65,7 +71,7 @@ namespace AF.ECommerce.API.Controllers
 
             await _produtoApplication.Adicionar(produto);
 
-            return Ok("Produto Cadastrado"); 
+            return Ok(); 
         }
 
         [HttpPut("{id}")]

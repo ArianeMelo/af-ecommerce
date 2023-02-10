@@ -51,7 +51,7 @@ namespace AF.ECommerce.API.Workers
                     }
                 }
                 _logger.LogInformation("Termino verificação do Estoque ...");
-                await Task.Delay(1200); //120000
+                await Task.Delay(1200000000); //120000
             }
 
         }

@@ -25,7 +25,7 @@ namespace AF.ECommerce.Application
 
         public async Task<IEnumerable<Categoria>> ObterPorDescricao(Expression<Func<Categoria, bool>> where)
         {
-            return await _categoriaRepository.ObterPorDescricao(where);
+            return await _categoriaRepository.Buscar(where);
         }
 
         public async Task<IEnumerable<Categoria>> ObterTodos()

@@ -5,9 +5,8 @@ using System.Text;
 
 namespace AF.ECommerce.Domain.Entities
 {
-    public class Pedido
+    public class Pedido : Entity
     {
-        public Guid Id { get; set; }
         public Guid ClienteId { get; set; }
         public DateTime DataCadastro { get; set; }
         public TipoFrete TipoFrete { get; set; }
@@ -20,8 +19,7 @@ namespace AF.ECommerce.Domain.Entities
         { }
 
         public Pedido(Guid clienteId, TipoFrete tipoFrete, string observacao = "")
-        {
-            Id = Guid.NewGuid();
+        {           
             DataCadastro = DateTime.Now;
             Status = Status.EmAnalise;
             Observacao = observacao;
@@ -39,15 +37,11 @@ namespace AF.ECommerce.Domain.Entities
         public void CalcularValor()
         {
             Valor = 0;
-
             foreach (var item in Itens)
             {
                 //Valor do Pedido
                 Valor += (item.Valor * item.Quantidade) - item.Desconto ;
-
-            }
-                       
-
+            }  
         }
 
         public void AlterarStatusParaProcessando()

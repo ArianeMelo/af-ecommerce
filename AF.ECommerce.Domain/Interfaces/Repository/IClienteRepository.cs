@@ -7,14 +7,8 @@ using System.Threading.Tasks;
 
 namespace AF.ECommerce.Domain.Interfaces.Repository
 {
-    public interface IClienteRepository
+    public interface IClienteRepository : IBaseRepository<Cliente>
     {
-        Task<Cliente> ObterPorId(Guid id);
-        Task<IEnumerable<Cliente>> ObterPorCpf(Expression<Func<Cliente, bool>> where);
-        Task<IEnumerable<Cliente>> ObterTodos();
-        Task<bool> Adicionar(Cliente cliente);
-        Task Alterar(Cliente cliente);
-        Task Excluir(Cliente cliente);
-
+      
     }
 }

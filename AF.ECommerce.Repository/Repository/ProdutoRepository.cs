@@ -1,5 +1,6 @@
 ﻿using AF.ECommerce.Domain.Entities;
 using AF.ECommerce.Domain.Interfaces.Repository;
+using AF.ECommerce.Repository.Repository.Base;
 using Dommel;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -10,55 +11,34 @@ using System.Threading.Tasks;
 
 namespace AF.ECommerce.Repository.Repository
 {
-    public class ProdutoRepository : IProdutoRepository
+    public class ProdutoRepository : BaseRepository<Produto>, IProdutoRepository
     {
-        private readonly IConfiguration _configuration;
-        private readonly string _connection;
-
-        public ProdutoRepository(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            _connection = _configuration.GetConnectionString("DefaultString");
-        }
-
+        public ProdutoRepository(IUnityOfWork unitOfWork)
+             : base(unitOfWork)
+        { }
         public async Task<Produto> ObterPorId(Guid id)
         {
-            using(SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                return await dbConnection.GetAsync<Produto>(id);
-            }
+            return await base.ObterPorId(id);
         }
 
-        public async Task<IEnumerable<Produto>> ObterTodos()
+        public override async Task<IEnumerable<Produto>> ObterTodos()
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                return await dbConnection.GetAllAsync<Produto>();
-            }
+            return await base.ObterTodos();
         }
 
-        public async Task Adicionar(Produto produto)
+        public override async Task Adicionar(Produto produto)
         {
-            using(SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.InsertAsync(produto);
-            } 
+            await base.Adicionar(produto);
         }
 
-        public async Task Alterar(Produto produto)
+        public override async Task Alterar(Produto produto)
         {
-            using(SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.UpdateAsync(produto);
-            }
+            await base.Alterar(produto);
         }
 
-        public async Task Excluir(Produto produto)
+        public override async Task Excluir(Produto produto)
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.DeleteAsync(produto);
-            }
+            await base.Excluir(produto);
         }
     }
 }

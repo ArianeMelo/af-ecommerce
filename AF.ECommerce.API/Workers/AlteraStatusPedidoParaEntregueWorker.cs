@@ -52,7 +52,7 @@ namespace AF.ECommerce.API.Workers
 
                 }
                 _logger.LogInformation("Terminando a execução. Status alterado para Entregue...");
-                await Task.Delay(120000); //120000
+                await Task.Delay(1200000000); //120000
             }
 
         }

@@ -55,7 +55,7 @@ namespace AF.ECommerce.API.Workers
 
                     }
                     _logger.LogInformation("Fim da execução.  Status alterado para Processando ...");
-                    await Task.Delay(120000); //120000
+                    await Task.Delay(1200000000); //120000
                 }
 
             }

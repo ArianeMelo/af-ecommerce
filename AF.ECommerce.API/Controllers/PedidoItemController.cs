@@ -44,7 +44,7 @@ namespace AF.ECommerce.API.Controllers
             return Ok(await _pedidoItemApplication.ObterTodos());
         }
 
-        //[HttpPost]
+        //[HttpPost] //Pedido Item faz parte do Pedido, por isso não pode ser inserido a parte,
         //public async Task<IActionResult> Adicionar(PedidoItemPostViewModel pedidoItemPostViewModel)
         //{
         //    if (!pedidoItemPostViewModel.EstiverValido())

@@ -1,77 +1,53 @@
 ﻿using AF.ECommerce.Domain.Entities;
 using AF.ECommerce.Domain.Interfaces.Repository;
-using Dommel;
-using Microsoft.Extensions.Configuration;
+using AF.ECommerce.Repository.Repository.Base;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AF.ECommerce.Repository.Repository
 {
-    public class ClienteRepository : IClienteRepository
+    public class ClienteRepository : BaseRepository<Cliente>, IClienteRepository
     {
-       
-        private readonly IConfiguration _configuration;
-        private readonly string _connection;
+        public ClienteRepository(IUnityOfWork unitOfWork)
+            : base(unitOfWork)
+        { }
 
-        public ClienteRepository(IConfiguration configuration)
+        public override async Task<Cliente> ObterPorId(Guid id)
         {
-            _configuration = configuration;
-            _connection = _configuration.GetConnectionString("DefaultString");
+            return await base.ObterPorId(id);
         }
 
-        public async Task<Cliente> ObterPorId(Guid id)
+        public override async Task<IEnumerable<Cliente>> ObterTodos()
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                 return await dbConnection.GetAsync<Cliente>(id);
-            }
-        }
-        public async Task<IEnumerable<Cliente>> ObterPorCpf(Expression<Func<Cliente, bool>> where)
-        {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                return await dbConnection.SelectAsync<Cliente>(where);
-            }
+            return await base.ObterTodos();
         }
 
-        public async Task<IEnumerable<Cliente>> ObterTodos()
-        {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                return await dbConnection.GetAllAsync<Cliente>(); 
-            }
-        }
-        public async Task<bool> Adicionar(Cliente cliente)
-        {
-           using(SqlConnection dbConnection = new SqlConnection(_connection))
-           {
-                var cli = await dbConnection.InsertAsync(cliente);
+        //public async Task<bool> Adicionar(Cliente cliente)
+        //{
+        //    await base.Adicionar(cliente);
+        //    return true;
+        //}
 
-                return true;
-           }
-
+        public override async Task Adicionar(Cliente cliente)
+        {
+            await base.Adicionar(cliente);
         }
 
-        public async Task Alterar(Cliente cliente)
+        public override async Task Alterar(Cliente cliente)
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.UpdateAsync(cliente);
-            }
+            await base.Alterar(cliente);
         }
 
-        public async Task Excluir(Cliente cliente)
+        public override async Task Excluir(Cliente cliente)
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.DeleteAsync(cliente);
-            }
+            await base.Excluir(cliente);
         }
 
-       
+        public override async Task<IEnumerable<Cliente>> Buscar(Expression<Func<Cliente, bool>> where)
+        {
+            return await base.Buscar(where);
+        }
     }
 }

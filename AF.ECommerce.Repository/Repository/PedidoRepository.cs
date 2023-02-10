@@ -1,136 +1,94 @@
 ﻿using AF.ECommerce.Domain.Entities;
 using AF.ECommerce.Domain.Interfaces.Repository;
+using AF.ECommerce.Repository.Queries;
+using AF.ECommerce.Repository.Repository.Base;
 using Dapper;
 using Dommel;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AF.ECommerce.Repository.Repository
 {
-    public class PedidoRepository : IPedidoRepository
+    public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
     {
-
-        private readonly IConfiguration _configuration;
-        private readonly IPedidoItemRepository _pedidoItemRepository;
-        private readonly string _connection;
-
-        public PedidoRepository(IConfiguration configuration,
-            IPedidoItemRepository pedidoItemRepository)
-        {
-            _pedidoItemRepository = pedidoItemRepository;
-            _configuration = configuration;
-            _connection = _configuration.GetConnectionString("DefaultString");
-        }
-
-        public async Task<Pedido> ObterPorId(Guid id)
-        {
-            await Task.Delay(1);
-
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                var queryPedido = @"SELECT P.ID, P.CLIENTEID, " +
-                                    "P.DATACADASTRO, P.TIPOFRETE, P.STATUS, P.VALOR, " +
-                                     "P.OBSERVACAO, PI.ID, PI.PEDIDO_ID, PI.PRODUTO_ID, " +
-                                      " PI.QUANTIDADE, PI.VALOR, PI.DESCONTO " +
-                               "FROM PEDIDOS AS P " +
-                               "JOIN PEDIDOS_ITEM AS PI " +
-                                     "ON P.ID = PI.PEDIDO_ID " +
-                                "WHERE P.ID = @Id ";
-
-
-                var itensPedido = _pedidoItemRepository.ObterPorPedidoId(pedido => pedido.PedidoId == id).Result.ToList();
-
-
-                var pedido = dbConnection.Query<Pedido, PedidoItem, Pedido>(queryPedido,
-                    map: (pedido, pedidoItem) =>
-                    {
-
-                        pedido.Itens = itensPedido;
-
-                        return pedido;
-                    },
-                    param: new { id },
-                    splitOn: "id").FirstOrDefault();
-
-                return pedido;
-
-            }
-        }
-
-
+        public PedidoRepository(IUnityOfWork unitOfWork)
+            : base(unitOfWork)
+        { }
 
         public async Task<IEnumerable<Pedido>> ObterTodos()
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
+            using (SqlConnection db = new SqlConnection(UnityOfWork.ConnectionString))
             {
-
-                var queryPedido = @"SELECT P.ID, P.CLIENTEID, " +
-                                         "P.DATACADASTRO, P.TIPOFRETE, P.STATUS, P.VALOR, " +
-                                         "P.OBSERVACAO, PI.ID, PI.PEDIDO_ID AS PedidoId, PI.PRODUTO_ID AS ProdutoId, " +
-                                     "PI.QUANTIDADE, PI.VALOR, PI.DESCONTO " +
-                                   "FROM PEDIDOS AS P " +
-                                   "INNER JOIN PEDIDOS_ITEM AS PI " +
-                                          "ON P.ID = PI.PEDIDO_ID";
+                string querySql = PedidoQuery.ObterTodosOsPedidos;
 
                 var pedidos = new List<Pedido>();
 
-               await dbConnection.QueryAsync<Pedido, PedidoItem, Pedido>(queryPedido,
-                    (pedido, pedidoItem) =>
+                await db.QueryAsync<Pedido, PedidoItem, Pedido>(querySql,
+                    (pedido, item) =>
                     {
-                        if (pedidos.Any(p => p.Id == pedido.Id))
-                        {
-                            var pedidoExistente = pedidos.FirstOrDefault(p => p.Id == pedido.Id);
-                            pedidoExistente.Itens.Add(pedidoItem);
-                        }
+                        var pedidoEncontrado = pedidos.FirstOrDefault(p => p.Id.Equals(pedido.Id));
+
+                        if (pedidoEncontrado != null)
+                            pedidoEncontrado.Itens.Add(item);
                         else
                         {
-                            pedido.Itens.Add(pedidoItem);
+                            pedido.Itens.Add(item);
                             pedidos.Add(pedido);
                         }
+
                         return pedido;
                     },
-                    splitOn: "Id,Id");
+                    splitOn: "ID_ITEM_PEDIDO");
 
                 return pedidos;
             }
         }
-        public async Task<bool> AdicionarPedido(Pedido pedido)
-        {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.InsertAsync(pedido);
 
-                return true;
+        public async Task<Pedido> ObterPorId(Guid id)
+        {
+            using (SqlConnection db = new SqlConnection(UnityOfWork.ConnectionString))
+            {
+                string querySql = PedidoQuery.ObterPedidoPorId;
+
+                var pedidoRetorno = new Pedido();
+
+                await db.QueryAsync<Pedido, PedidoItem, Pedido>(querySql,
+                    (pedido, item) =>
+                    {
+                        if (pedidoRetorno.Id.Equals(pedido.Id))
+                            pedidoRetorno.Itens.Add(item);
+                        else
+                        {
+                            pedidoRetorno = pedido;
+                            pedidoRetorno.Itens.Add(item);
+                        }
+
+                        return pedido;
+                    },
+                    param: new { id },
+                    splitOn: "ID_ITEM_PEDIDO");
+
+                return pedidoRetorno;
             }
         }
-
-        public async Task AdicionarPedidoItem(PedidoItem pedidoItem)
+        public override async Task Adicionar(Pedido pedido)
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.InsertAsync(pedidoItem);
-            }
+            await base.Adicionar(pedido);
         }
 
-        public async Task Alterar(Pedido pedido)
+        public override async Task Alterar(Pedido pedido)
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.UpdateAsync(pedido);
-            }
+            await base.Alterar(pedido);
         }
 
-        public async Task Excluir(Pedido pedido)
+        public override async Task Excluir(Pedido pedido)
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.DeleteAsync(pedido);
-            }
+            await base.Excluir(pedido);
         }
     }
+
 }
+

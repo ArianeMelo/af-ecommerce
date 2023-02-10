@@ -67,14 +67,11 @@ namespace AF.ECommerce.API.Controllers
                 var pedidoItem = new PedidoItem(pedido.Id, item.ProdutoId, item.Quantidade, item.Valor, item.Desconto);
 
                 pedido.AdicionarItem(pedidoItem);
-
             });
                      
-
             var estoqueSuficente = await _pedidoApplication.AdicionarPedido(pedido);
             if (!estoqueSuficente)
                 return BadRequest("Produto Indisponível");
-
 
             return Ok(pedido);
 

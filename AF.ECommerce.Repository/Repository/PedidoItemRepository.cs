@@ -1,65 +1,51 @@
 ﻿using AF.ECommerce.Domain.Entities;
 using AF.ECommerce.Domain.Interfaces.Repository;
+using AF.ECommerce.Repository.Repository.Base;
 using Dommel;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AF.ECommerce.Repository.Repository
 {
-    public class PedidoItemRepository : IPedidoItemRepository
+    public class PedidoItemRepository : BaseRepository<PedidoItem>,  IPedidoItemRepository
     {
-        private readonly IConfiguration _configuration;
-        private readonly string _connection;
-        public PedidoItemRepository(IConfiguration configuration)
+       
+        public PedidoItemRepository(IUnityOfWork unitOfWork)
+            : base(unitOfWork)
+        {}
+
+        public override async  Task<IEnumerable<PedidoItem>> ObterTodos()
         {
-            _configuration = configuration;
-            _connection = _configuration.GetConnectionString("DefaultString");
+            return await base.ObterTodos();
         }
 
-        public async Task<IEnumerable<PedidoItem>> ObterTodos()
+        public override async Task<PedidoItem> ObterPorId(Guid id)
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                return await dbConnection.GetAllAsync<PedidoItem>();
-            }
+            return await base.ObterPorId(id);
         }
 
-        public async Task<PedidoItem> ObterPorId(Guid id)
+        public async Task AdicionarPedidoItem(PedidoItem pedidoItem)
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                return await dbConnection.GetAsync<PedidoItem>(id);
-            }
+            await base.Adicionar(pedidoItem);
         }
 
-        public async Task<IEnumerable<PedidoItem>> ObterPorPedidoId(Expression<Func<PedidoItem, bool>> where)
+        public  async Task<IEnumerable<PedidoItem>> ObterPorPedidoId(Expression<Func<PedidoItem, bool>> where)
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                return await dbConnection.SelectAsync<PedidoItem>(where);
-            }
+            return await base.Buscar(where);
         }
 
 
-        public async Task Alterar(PedidoItem pedidoItem)
+        public override async Task Alterar(PedidoItem pedidoItem)
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.UpdateAsync(pedidoItem);
-            }
+            await base.Alterar(pedidoItem);
         }
 
-        public async Task Excluir(PedidoItem pedidoItem)
+        public override async Task Excluir(PedidoItem pedidoItem)
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.DeleteAsync(pedidoItem);
-            }
+            await base.Excluir(pedidoItem);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AF.ECommerce.Domain.Entities;
 using AF.ECommerce.Domain.Interfaces.Repository;
+using AF.ECommerce.Repository.Repository.Base;
 using Dommel;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -11,64 +12,39 @@ using System.Threading.Tasks;
 
 namespace AF.ECommerce.Repository.Repository
 {
-    public class CategoriaRepository : ICategoriaRepository
+    public class CategoriaRepository : BaseRepository<Categoria>, ICategoriaRepository
     {
-       
-        private readonly IConfiguration _configuration;
-        private readonly string _connection;
 
-        public CategoriaRepository(IConfiguration configuration)
+        public CategoriaRepository(IUnityOfWork unitOfWork)
+            : base(unitOfWork)
+        { }
+
+        public override async Task<Categoria> ObterPorId(Guid id)
         {
-            _configuration = configuration;
-            _connection = _configuration.GetConnectionString("DefaultString");
+            return await base.ObterPorId(id);
         }
 
-        public async Task<Categoria> ObterPorId(Guid id)
+        public override async Task<IEnumerable<Categoria>> ObterTodos()
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                return await dbConnection.GetAsync<Categoria>(id);
-            }
+            return await base.ObterTodos();
+        }
+        public override async Task Adicionar(Categoria categoria)
+        {
+            await base.Adicionar(categoria);
         }
 
+        public override async Task Alterar(Categoria categoria)
+        {
+            await base.Alterar(categoria);
+        }
+
+        public override async Task Excluir(Categoria categoria)
+        {
+            await base.Excluir(categoria);
+        }
         public async Task<IEnumerable<Categoria>> ObterPorDescricao(Expression<Func<Categoria, bool>> where)
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                return await dbConnection.SelectAsync(where);
-            }
-        }
-
-        public async Task<IEnumerable<Categoria>> ObterTodos()
-        {
-            using (SqlConnection dbConnetion = new SqlConnection(_connection))
-            {
-                return await dbConnetion.GetAllAsync<Categoria>();
-            }
-        }
-
-        public async Task Adicionar(Categoria categoria)
-        {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.InsertAsync(categoria);
-            }
-        }
-
-        public async Task Alterar(Categoria categoria)
-        {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.UpdateAsync(categoria);
-            }
-        }
-
-        public async Task Excluir(Categoria categoria)
-        {
-            using (SqlConnection dbConnection = new SqlConnection(_connection))
-            {
-                await dbConnection.DeleteAsync(categoria);
-            }
+            return await base.Buscar(where);
         }
     }
 }

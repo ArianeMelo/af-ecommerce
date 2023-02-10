@@ -5,9 +5,12 @@ using AF.ECommerce.Repository.Repository;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentValidation.Results;
 
 namespace AF.ECommerce.Application
 {
@@ -17,6 +20,7 @@ namespace AF.ECommerce.Application
         private readonly IProdutoRepository _produtoRepository;
         private readonly IPedidoItemRepository _pedidoItemRepository;
         private readonly ILogger<PedidoApplication> _logger;
+        private ValidationResult _validationResult;
 
         public PedidoApplication(
             IPedidoRepository pedidoRepository,
@@ -28,12 +32,19 @@ namespace AF.ECommerce.Application
             _pedidoRepository = pedidoRepository;
             _produtoRepository = produtoRepository;
             _pedidoItemRepository = pedidoItemRepository;
-            _logger = logger;
+            _logger = logger; 
+            _validationResult = new ValidationResult();
         }
 
         public async Task<Pedido> ObterPorId(Guid id)
-        {         
-            return await _pedidoRepository.ObterPorId(id);
+        {
+            var pedido = await _pedidoRepository.ObterPorId(id);
+            if (pedido == null)
+            {
+                _validationResult.Errors.Add(new ValidationFailure() { ErrorMessage = $"Pedido não localizado" });
+
+            }
+            return (pedido);
         }
 
         public async Task<IEnumerable<Pedido>> ObterTodos()
@@ -64,7 +75,7 @@ namespace AF.ECommerce.Application
                
             }
 
-            await _pedidoRepository.AdicionarPedido(pedido);
+            await _pedidoRepository.Adicionar(pedido);
 
             foreach (var item in pedido.Itens)
             {
@@ -73,7 +84,7 @@ namespace AF.ECommerce.Application
                     Id = item.Id
                 };
 
-                await _pedidoRepository.AdicionarPedidoItem(pedidoItem);
+                await _pedidoItemRepository.Adicionar(pedidoItem);
 
                 
                 var produto = listaProdutoAInserir.FirstOrDefault(prod => prod.Id == item.ProdutoId);
