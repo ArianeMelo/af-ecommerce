@@ -1,11 +1,8 @@
+using AF.ECommerce.API.Workers;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using static AF.ECommerce.API.Workers.AlteraStatusPedidoParaProcessandoWorkercs;
 
 namespace AF.ECommerce.API
 {
@@ -21,6 +18,13 @@ namespace AF.ECommerce.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+             .ConfigureServices(configurar =>
+             {
+                 configurar.AddHostedService<AlteraStatusPedidoParaProcessandoWorker>();
+                 configurar.AddHostedService<AlteraStatusPedidoParaEntregueWorker>();
+                 configurar.AddHostedService<EnvioEmailSeEstoqueBaixoWorker>();
+
+             });
     }
 }
